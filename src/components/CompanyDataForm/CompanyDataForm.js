@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 
-let CustomForm = ({ handleSubmit, reset, submitting, countryId }) => {
+let CompanyDataForm = ({ handleSubmit, reset, submitting, countryId }) => {
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
 
@@ -26,7 +26,7 @@ let CustomForm = ({ handleSubmit, reset, submitting, countryId }) => {
     trans_axios
       .get(`/api/Lookup/GetCities?countryId=${id}`)
       .then((response) => {
-        console.log(response.data.Data);
+        // console.log(response.data.Data);
         const cities = response.data.Data;
         setCities(cities);
       })
@@ -136,15 +136,15 @@ let CustomForm = ({ handleSubmit, reset, submitting, countryId }) => {
   );
 };
 
-CustomForm = reduxForm({ form: 'companyDetails' })(CustomForm);
+CompanyDataForm = reduxForm({ form: 'companyDetails' })(CompanyDataForm);
 
 const selector = formValueSelector('companyDetails');
-CustomForm = connect((state) => {
+CompanyDataForm = connect((state) => {
   const countryId = selector(state, 'country');
 
   return {
     countryId,
   };
-})(CustomForm);
+})(CompanyDataForm);
 
-export default CustomForm;
+export default CompanyDataForm;
