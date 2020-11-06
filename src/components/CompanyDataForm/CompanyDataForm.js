@@ -2,10 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import trans_axios from '../../axios';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { connect } from 'react-redux';
+import { Field } from 'redux-form';
 
-let CompanyDataForm = ({ handleSubmit, reset, submitting, countryId }) => {
+let CompanyDataForm = ({ children, countryId }) => {
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
 
@@ -48,7 +47,7 @@ let CompanyDataForm = ({ handleSubmit, reset, submitting, countryId }) => {
   return (
     <div className="mt-4 mt border rounded px-3 pt-2 shadow">
       <h4 className="text-info">Company Data</h4>
-      <Form className="mt-4" onSubmit={handleSubmit}>
+      <div className="mt-4">
         <Form.Row>
           <Col>
             <Form.Group controlId="companyName">
@@ -131,20 +130,11 @@ let CompanyDataForm = ({ handleSubmit, reset, submitting, countryId }) => {
             </Form.Group>
           </Col>
         </Form.Row>
-      </Form>
+      </div>
+
+      <div>{children}</div>
     </div>
   );
 };
-
-CompanyDataForm = reduxForm({ form: 'companyDetails' })(CompanyDataForm);
-
-const selector = formValueSelector('companyDetails');
-CompanyDataForm = connect((state) => {
-  const countryId = selector(state, 'country');
-
-  return {
-    countryId,
-  };
-})(CompanyDataForm);
 
 export default CompanyDataForm;
