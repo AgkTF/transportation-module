@@ -1,31 +1,73 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import trans_axios from '../../axios';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
 
-const CustomForm = () => {
+let CustomForm = ({ handleSubmit, reset, submitting, countryId }) => {
+  const [countries, setCountries] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  const fetchCountries = useCallback(() => {
+    trans_axios
+      .get('/api/Lookup/GetCountries')
+      .then((response) => {
+        // console.log(response.data.Data);
+        const countries = response.data.Data;
+        setCountries(countries);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const fetchCities = useCallback((id) => {
+    trans_axios
+      .get(`/api/Lookup/GetCities?countryId=${id}`)
+      .then((response) => {
+        console.log(response.data.Data);
+        const cities = response.data.Data;
+        setCities(cities);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchCountries();
+    if (['Choose...', undefined].includes(countryId)) {
+      return;
+    }
+    fetchCities(countryId);
+  }, [fetchCountries, fetchCities, countryId]);
+
+  // we could extract bootstrap select here. We'll see
+
   return (
     <div className="mt-4 mt border rounded px-3 pt-2 shadow">
       <h4 className="text-info">Company Data</h4>
-      <Form className="mt-4">
+      <Form className="mt-4" onSubmit={handleSubmit}>
         <Form.Row>
           <Col>
             <Form.Group controlId="companyName">
               <Form.Label>Company Name</Form.Label>
-              <Form.Control type="text" />
+              <Field type="text" name="companyName" component="input" />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="companyId">
               <Form.Label>Company ID#</Form.Label>
-              <Form.Control type="text" />
+              <Field type="number" name="companyId" component="input" />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="companyAddress">
               <Form.Label>Company Address</Form.Label>
-              <Form.Control type="text" />
+              <Field type="text" name="companyAddress" component="input" />
             </Form.Group>
           </Col>
         </Form.Row>
@@ -34,25 +76,35 @@ const CustomForm = () => {
           <Col>
             <Form.Group controlId="companyCountry">
               <Form.Label>Country</Form.Label>
-              <Form.Control as="select" defaultValue="Choose...">
+              <Field name="country" component="select">
                 <option>Choose...</option>
-              </Form.Control>
+                {countries.map((country) => (
+                  <option value={country.ID} key={country.ID}>
+                    {country.Value}
+                  </option>
+                ))}
+              </Field>
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="companyCity">
               <Form.Label>City</Form.Label>
-              <Form.Control as="select" defaultValue="Choose...">
+              <Field name="city" component="select">
                 <option>Choose...</option>
-              </Form.Control>
+                {cities.map((city) => (
+                  <option value={city.ID} key={city.ID}>
+                    {city.Value}
+                  </option>
+                ))}
+              </Field>
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="companyTelNo">
               <Form.Label>Company Telephone no.</Form.Label>
-              <Form.Control type="tel" />
+              <Field type="tel" name="companyPhone" component="input" />
             </Form.Group>
           </Col>
         </Form.Row>
@@ -61,21 +113,21 @@ const CustomForm = () => {
           <Col>
             <Form.Group controlId="personName">
               <Form.Label>Contact Person Name</Form.Label>
-              <Form.Control type="text" />
+              <Field type="text" name="personName" component="input" />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="personTelNo">
               <Form.Label>Contact Person Tel. no.</Form.Label>
-              <Form.Control type="tel" />
+              <Field type="tel" name="personPhone" component="input" />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="personEmail">
               <Form.Label>Contact Person Email</Form.Label>
-              <Form.Control type="email" />
+              <Field type="email" name="personEmail" component="input" />
             </Form.Group>
           </Col>
         </Form.Row>
@@ -83,5 +135,16 @@ const CustomForm = () => {
     </div>
   );
 };
+
+CustomForm = reduxForm({ form: 'companyDetails' })(CustomForm);
+
+const selector = formValueSelector('companyDetails');
+CustomForm = connect((state) => {
+  const countryId = selector(state, 'country');
+
+  return {
+    countryId,
+  };
+})(CustomForm);
 
 export default CustomForm;

@@ -49,8 +49,9 @@ const Homepage = ({ companies, fetchCompaniesAsync }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  companies: state.companies,
+//TODO: recheck the below destructure
+const mapStateToProps = ({ home }) => ({
+  companies: home.companies,
 });
 
 const mapDispatchToProps = (dispatch) => ({

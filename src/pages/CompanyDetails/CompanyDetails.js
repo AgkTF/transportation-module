@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import Button from 'react-bootstrap/Button';
-import './CompanyDetails.scss';
 
 const CompanyDetails = () => {
   return (
