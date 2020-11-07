@@ -22,7 +22,7 @@ export const fetchCompanyAsync = (id) => {
     trans_axios
       .get(`/api/TransportationCompany/GetById?id=${id}`)
       .then((response) => {
-        console.log(response.data.Data); // this is an object
+        // console.log(response.data.Data); // this is an object
         const companyData = response.data.Data;
         dispatch(fetchCompanySuccess(companyData));
       })

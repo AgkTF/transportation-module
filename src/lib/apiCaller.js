@@ -1,7 +1,7 @@
 import trans_axios from '../axios';
 
 export const apiCaller = (values, url, method, history) => {
-  console.log({ values });
+  // console.log({ values });
 
   const {
     ID,
@@ -32,7 +32,7 @@ export const apiCaller = (values, url, method, history) => {
     },
   })
     .then((response) => {
-      console.log({ Success: response });
+      // console.log({ Success: response });
       history.push('/');
     })
     .catch((error) => {

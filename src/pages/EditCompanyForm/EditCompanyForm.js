@@ -32,7 +32,7 @@ let EditCompanyDetails = ({
 }) => {
   const location = useLocation();
   const companyId = queryString.parse(location.search).compId;
-  console.log(countryId);
+  // console.log(countryId);
 
   useEffect(() => {
     fetchCompanyAsync(companyId);

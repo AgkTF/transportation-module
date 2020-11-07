@@ -16,7 +16,7 @@ const Homepage = () => {
     trans_axios
       .get('/api/TransportationCompany/All')
       .then((response) => {
-        console.log(response.data.Data); // this is an array
+        // console.log(response.data.Data); // this is an array
         const companiesData = response.data.Data;
         setCompanies(companiesData);
         setIsLoading(false);
