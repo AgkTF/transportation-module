@@ -58,21 +58,26 @@ let CompanyDetails = ({
         </FormSection>
 
         <FieldArray name="companyBuses" component={renderVehicleForms} />
-      </form>
 
-      <div className="mt-3">
-        <Button
-          variant="secondary"
-          className="px-5"
-          disabled={pristine || submitting}
-          onClick={reset}
-        >
-          Clear
-        </Button>
-        <Button variant="info" className="ml-3 px-5" disabled={submitting}>
-          Save
-        </Button>
-      </div>
+        <div className="mt-3">
+          <Button
+            variant="secondary"
+            className="px-5"
+            disabled={pristine || submitting}
+            onClick={reset}
+          >
+            Clear
+          </Button>
+          <Button
+            variant="info"
+            className="ml-3 px-5"
+            disabled={submitting}
+            type="submit"
+          >
+            Save
+          </Button>
+        </div>
+      </form>
     </Layout>
   );
 };

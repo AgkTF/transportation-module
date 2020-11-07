@@ -32,7 +32,11 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
           <Col>
             <Form.Group controlId="vehicleType">
               <Form.Label>Vehicle Type</Form.Label>
-              <Field name={`${vehicle}.vehicleType`} component="select">
+              <Field
+                name={`${vehicle}.BusTypeID`}
+                component="select"
+                parse={Number}
+              >
                 <option>Choose...</option>
                 {vehicleTypes.map((type) => (
                   <option value={type.ID} key={type.ID}>
@@ -46,18 +50,18 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
           <Col>
             <Form.Group controlId="vehicleBrand">
               <Form.Label>Brand</Form.Label>
-              <Field
-                type="text"
-                name={`${vehicle}.vehicleBrand`}
-                component="input"
-              />
+              <Field type="text" name={`${vehicle}.Brand`} component="input" />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="modelYear">
               <Form.Label>Model Year</Form.Label>
-              <Field name={`${vehicle}.modelYear`} component="select">
+              <Field
+                name={`${vehicle}.YearModel`}
+                component="select"
+                parse={Number}
+              >
                 <option>Choose...</option>
                 <option value="2021">2021</option>
                 <option value="2020">2020</option>
@@ -74,7 +78,7 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
           <Col>
             <Form.Group controlId="Description">
               <Form.Label>Description</Form.Label>
-              <Field name={`${vehicle}.description`} component="textarea" />
+              <Field name={`${vehicle}.Description`} component="textarea" />
             </Form.Group>
           </Col>
         </Form.Row>
@@ -84,8 +88,9 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
               <Form.Label>Total no. of seats</Form.Label>
               <Field
                 type="number"
-                name={`${vehicle}.noOfSeats`}
+                name={`${vehicle}.Number_Of_Seats`}
                 component="input"
+                parse={Number}
               />
             </Form.Group>
           </Col>
@@ -95,8 +100,9 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
               <Form.Label>Total no. of seats per row</Form.Label>
               <Field
                 type="number"
-                name={`${vehicle}.seatsPerRow`}
+                name={`${vehicle}.Number_Of_Seats_Per_Raw`}
                 component="input"
+                parse={Number}
               />
             </Form.Group>
           </Col>
@@ -106,9 +112,18 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
               <Form.Label>Total no. of buses</Form.Label>
               <Field
                 type="number"
-                name={`${vehicle}.noOfBuses`}
+                name={`${vehicle}.Total_Number_Of_Buses`}
                 component="input"
+                parse={Number}
               />
+            </Form.Group>
+          </Col>
+        </Form.Row>
+        <Form.Row>
+          <Col>
+            <Form.Group controlId="notes">
+              <Form.Label>Notes</Form.Label>
+              <Field name={`${vehicle}.Notes`} component="textarea" />
             </Form.Group>
           </Col>
         </Form.Row>
