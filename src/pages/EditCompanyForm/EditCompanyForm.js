@@ -3,12 +3,7 @@ import Layout from '../../components/Layout/Layout';
 import Button from 'react-bootstrap/Button';
 import CompanyDataForm from '../../components/CompanyDataForm/CompanyDataForm';
 import VehicleDataForm from '../../components/VehicleDataForm/VehicleDataForm';
-import {
-  FieldArray,
-  reduxForm,
-  FormSection,
-  formValueSelector,
-} from 'redux-form';
+import { FieldArray, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { fetchCompanyAsync } from '../../redux/company/company-actions';
 import { useLocation } from 'react-router-dom';

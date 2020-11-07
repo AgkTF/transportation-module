@@ -9,7 +9,9 @@ const Layout = ({ children }) => {
         <Navbar.Brand href="/">Transportation</Navbar.Brand>
       </Navbar>
 
-      <Container>{children}</Container>
+      <Container fluid className="mt-4">
+        {children}
+      </Container>
     </>
   );
 };

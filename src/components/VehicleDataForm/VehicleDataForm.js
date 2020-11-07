@@ -4,6 +4,24 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { Field } from 'redux-form';
 
+const required = (value) => (value ? undefined : 'Required');
+const renderField = ({ input, type, meta: { touched, error }, children }) => (
+  <>
+    {children ? (
+      <Form.Control {...input} type={type} as={type}>
+        {children}
+      </Form.Control>
+    ) : (
+      <Form.Control {...input} type={type} />
+    )}
+    {touched && error && (
+      <span className="text-danger">
+        <small>{error}</small>
+      </span>
+    )}
+  </>
+);
+
 const VehicleDataForm = ({ number, vehicle, children }) => {
   const [vehicleTypes, setVehicleTypes] = useState([]);
 
@@ -29,13 +47,15 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
       <h4 className="text-info">Vehicle {number} Data</h4>
       <div className="mt-4">
         <Form.Row>
-          <Col>
+          <Col xs={2}>
             <Form.Group controlId="vehicleType">
               <Form.Label>Vehicle Type</Form.Label>
               <Field
                 name={`${vehicle}.BusTypeID`}
-                component="select"
+                type="select"
+                component={renderField}
                 parse={Number}
+                validate={required}
               >
                 <option>Choose...</option>
                 {vehicleTypes.map((type) => (
@@ -47,20 +67,27 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
             </Form.Group>
           </Col>
 
-          <Col>
+          <Col xs={2}>
             <Form.Group controlId="vehicleBrand">
               <Form.Label>Brand</Form.Label>
-              <Field type="text" name={`${vehicle}.Brand`} component="input" />
+              <Field
+                type="text"
+                name={`${vehicle}.Brand`}
+                component={renderField}
+                validate={required}
+              />
             </Form.Group>
           </Col>
 
-          <Col>
+          <Col xs={2}>
             <Form.Group controlId="modelYear">
               <Form.Label>Model Year</Form.Label>
               <Field
                 name={`${vehicle}.YearModel`}
-                component="select"
+                type="select"
+                component={renderField}
                 parse={Number}
+                validate={required}
               >
                 <option>Choose...</option>
                 <option value="2021">2021</option>
@@ -75,55 +102,67 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
             </Form.Group>
           </Col>
 
-          <Col>
+          <Col xs={6}>
             <Form.Group controlId="Description">
               <Form.Label>Description</Form.Label>
-              <Field name={`${vehicle}.Description`} component="textarea" />
+              <Field
+                name={`${vehicle}.Description`}
+                type="textarea"
+                component={renderField}
+              />
             </Form.Group>
           </Col>
         </Form.Row>
+
         <Form.Row>
-          <Col>
+          <Col xs={2}>
             <Form.Group controlId="noOfSeats">
               <Form.Label>Total no. of seats</Form.Label>
               <Field
                 type="number"
                 name={`${vehicle}.Number_Of_Seats`}
-                component="input"
                 parse={Number}
+                component={renderField}
+                validate={required}
               />
             </Form.Group>
           </Col>
 
-          <Col>
+          <Col xs={2}>
             <Form.Group controlId="seatsPerRow">
               <Form.Label>Total no. of seats per row</Form.Label>
               <Field
                 type="number"
                 name={`${vehicle}.Number_Of_Seats_Per_Raw`}
-                component="input"
+                component={renderField}
                 parse={Number}
               />
             </Form.Group>
           </Col>
 
-          <Col>
+          <Col xs={2}>
             <Form.Group controlId="noOfBuses">
               <Form.Label>Total no. of buses</Form.Label>
               <Field
                 type="number"
                 name={`${vehicle}.Total_Number_Of_Buses`}
-                component="input"
+                component={renderField}
+                validate={required}
                 parse={Number}
               />
             </Form.Group>
           </Col>
         </Form.Row>
+
         <Form.Row>
-          <Col>
+          <Col xs={6}>
             <Form.Group controlId="notes">
               <Form.Label>Notes</Form.Label>
-              <Field name={`${vehicle}.Notes`} component="textarea" />
+              <Field
+                name={`${vehicle}.Notes`}
+                component={renderField}
+                type="textarea"
+              />
             </Form.Group>
           </Col>
         </Form.Row>

@@ -3,12 +3,7 @@ import Layout from '../../components/Layout/Layout';
 import Button from 'react-bootstrap/Button';
 import CompanyDataForm from '../../components/CompanyDataForm/CompanyDataForm';
 import VehicleDataForm from '../../components/VehicleDataForm/VehicleDataForm';
-import {
-  FieldArray,
-  reduxForm,
-  FormSection,
-  formValueSelector,
-} from 'redux-form';
+import { FieldArray, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 
 const renderVehicleForms = ({ fields }) => (
@@ -22,7 +17,7 @@ const renderVehicleForms = ({ fields }) => (
     </Button>
     {fields.map((vehicle, index) => (
       <VehicleDataForm key={index + 1} number={index + 1} vehicle={vehicle}>
-        <>
+        <div className="mt-2 mb-3">
           <Button
             variant="danger"
             className="px-5"
@@ -32,12 +27,12 @@ const renderVehicleForms = ({ fields }) => (
           </Button>
           <Button
             variant="secondary"
-            className="px-5"
+            className="px-5 ml-3"
             onClick={() => fields.push({})}
           >
             Add vehicle
           </Button>
-        </>
+        </div>
       </VehicleDataForm>
     ))}
   </>
@@ -53,13 +48,11 @@ let CompanyDetails = ({
   return (
     <Layout>
       <form onSubmit={handleSubmit}>
-        {/* <FormSection name="CompanyDataForm"> */}
         <CompanyDataForm countryId={countryId} />
-        {/* </FormSection> */}
 
         <FieldArray name="companyBuses" component={renderVehicleForms} />
 
-        <div className="mt-3">
+        <div className="my-3">
           <Button
             variant="secondary"
             className="px-5"
@@ -71,7 +64,7 @@ let CompanyDetails = ({
           <Button
             variant="info"
             className="ml-3 px-5"
-            disabled={submitting}
+            disabled={pristine || submitting}
             type="submit"
           >
             Save
@@ -86,7 +79,7 @@ CompanyDetails = reduxForm({ form: 'completeDetailsForm' })(CompanyDetails);
 
 const selector = formValueSelector('completeDetailsForm');
 CompanyDetails = connect((state) => {
-  const countryId = selector(state, 'CompanyDataForm.country');
+  const countryId = selector(state, 'Country');
 
   return {
     countryId,

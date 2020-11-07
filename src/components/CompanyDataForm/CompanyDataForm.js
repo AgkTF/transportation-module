@@ -4,6 +4,25 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { Field } from 'redux-form';
 
+const required = (value) => (value ? undefined : 'Required');
+
+const renderField = ({ input, type, meta: { touched, error }, children }) => (
+  <>
+    {children ? (
+      <Form.Control {...input} type={type} as={type}>
+        {children}
+      </Form.Control>
+    ) : (
+      <Form.Control {...input} type={type} />
+    )}
+    {touched && error && (
+      <span className="text-danger">
+        <small>{error}</small>
+      </span>
+    )}
+  </>
+);
+
 let CompanyDataForm = ({ children, countryId }) => {
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
@@ -42,8 +61,6 @@ let CompanyDataForm = ({ children, countryId }) => {
     fetchCities(countryId);
   }, [fetchCountries, fetchCities, countryId]);
 
-  // we could extract bootstrap select here. We'll see
-
   return (
     <div className="mt-4 mt border rounded px-3 pt-2 shadow">
       <h4 className="text-info">Company Data</h4>
@@ -52,30 +69,50 @@ let CompanyDataForm = ({ children, countryId }) => {
           <Col>
             <Form.Group controlId="companyName">
               <Form.Label>Company Name</Form.Label>
-              <Field type="text" name="Name" component="input" />
+              <Field
+                type="text"
+                name="Name"
+                component={renderField}
+                validate={required}
+              />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="companyId">
               <Form.Label>Company ID#</Form.Label>
-              <Field type="number" name="ID" component="input" parse={Number} />
+              <Field
+                type="number"
+                name="ID"
+                component={renderField}
+                validate={required}
+                parse={Number}
+              />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="companyAddress">
               <Form.Label>Company Address</Form.Label>
-              <Field type="text" name="Address" component="input" />
+              <Field
+                type="text"
+                name="Address"
+                component={renderField}
+                validate={required}
+              />
             </Form.Group>
           </Col>
-        </Form.Row>
 
-        <Form.Row>
           <Col>
             <Form.Group controlId="companyCountry">
               <Form.Label>Country</Form.Label>
-              <Field name="Country" component="select" parse={Number}>
+              <Field
+                name="Country"
+                type="select"
+                component={renderField}
+                parse={Number}
+                validate={required}
+              >
                 <option>Choose...</option>
                 {countries.map((country) => (
                   <option value={country.ID} key={country.ID}>
@@ -89,7 +126,13 @@ let CompanyDataForm = ({ children, countryId }) => {
           <Col>
             <Form.Group controlId="companyCity">
               <Form.Label>City</Form.Label>
-              <Field name="City" component="select" parse={Number}>
+              <Field
+                name="City"
+                type="select"
+                component={renderField}
+                parse={Number}
+                validate={required}
+              >
                 <option>Choose...</option>
                 {cities.map((city) => (
                   <option value={city.ID} key={city.ID}>
@@ -99,20 +142,31 @@ let CompanyDataForm = ({ children, countryId }) => {
               </Field>
             </Form.Group>
           </Col>
-
-          <Col>
-            <Form.Group controlId="companyTelNo">
-              <Form.Label>Company Telephone no.</Form.Label>
-              <Field type="tel" name="TelephoneNumber" component="input" />
-            </Form.Group>
-          </Col>
         </Form.Row>
 
         <Form.Row>
           <Col>
+            <Form.Group controlId="companyTelNo">
+              <Form.Label>Company Telephone no.</Form.Label>
+              <Field
+                type="tel"
+                name="TelephoneNumber"
+                component={renderField}
+                validate={required}
+                parse={Number}
+              />
+            </Form.Group>
+          </Col>
+
+          <Col>
             <Form.Group controlId="personName">
               <Form.Label>Contact Person Name</Form.Label>
-              <Field type="text" name="ContactPerson_Name" component="input" />
+              <Field
+                type="text"
+                name="ContactPerson_Name"
+                component={renderField}
+                validate={required}
+              />
             </Form.Group>
           </Col>
 
@@ -122,7 +176,8 @@ let CompanyDataForm = ({ children, countryId }) => {
               <Field
                 type="tel"
                 name="ContactPerson_TelephoneNumber"
-                component="input"
+                component={renderField}
+                validate={required}
               />
             </Form.Group>
           </Col>
@@ -133,10 +188,13 @@ let CompanyDataForm = ({ children, countryId }) => {
               <Field
                 type="email"
                 name="ContactPerson_Email"
-                component="input"
+                component={renderField}
+                validate={required}
               />
             </Form.Group>
           </Col>
+
+          <Col></Col>
         </Form.Row>
       </div>
 
