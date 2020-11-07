@@ -7,7 +7,8 @@ import { apiCaller } from './lib/apiCaller';
 
 function App() {
   const addSubmitHandler = (values) => {
-    apiCaller(values, '/api/TransportationCompany/Add', 'post');
+    console.log(values);
+    // apiCaller(values, '/api/TransportationCompany/Add', 'post');
   };
 
   const editSubmitHandler = (values) => {

@@ -5,6 +5,10 @@ import Col from 'react-bootstrap/Col';
 import { Field } from 'redux-form';
 
 const required = (value) => (value ? undefined : 'Required');
+const email = (value) =>
+  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+    ? 'Invalid email address'
+    : undefined;
 
 const renderField = ({ input, type, meta: { touched, error }, children }) => (
   <>
@@ -153,7 +157,6 @@ let CompanyDataForm = ({ children, countryId }) => {
                 name="TelephoneNumber"
                 component={renderField}
                 validate={required}
-                parse={Number}
               />
             </Form.Group>
           </Col>
@@ -189,7 +192,7 @@ let CompanyDataForm = ({ children, countryId }) => {
                 type="email"
                 name="ContactPerson_Email"
                 component={renderField}
-                validate={required}
+                validate={[required, email]}
               />
             </Form.Group>
           </Col>

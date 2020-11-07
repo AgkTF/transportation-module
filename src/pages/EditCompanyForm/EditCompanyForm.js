@@ -12,8 +12,8 @@ import * as queryString from 'query-string';
 const renderVehicleForms = ({ fields }) => (
   <>
     <Button
-      variant="secondary"
-      className="px-5"
+      variant="primary"
+      className="mt-2 px-5"
       onClick={() => fields.push({})}
     >
       Add vehicle
@@ -29,7 +29,7 @@ const renderVehicleForms = ({ fields }) => (
             Remove vehicle
           </Button>
           <Button
-            variant="secondary"
+            variant="primary"
             className="px-5"
             onClick={() => fields.push({})}
           >
