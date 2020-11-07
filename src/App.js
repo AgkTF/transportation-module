@@ -9,12 +9,10 @@ function App() {
   let history = useHistory();
 
   const addSubmitHandler = (values) => {
-    console.log(values);
     apiCaller(values, '/api/TransportationCompany/Add', 'post', history);
   };
 
   const editSubmitHandler = (values) => {
-    console.log(values);
     apiCaller(values, '/api/TransportationCompany/Update', 'put', history);
   };
 

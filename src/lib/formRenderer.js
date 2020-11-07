@@ -22,20 +22,32 @@ const renderVehicleForms = ({
       {fields.map((vehicle, index) => (
         <VehicleDataForm key={index + 1} number={index + 1} vehicle={vehicle}>
           <div className="mt-2 mb-3">
-            <Button
-              variant="danger"
-              className="px-5"
-              onClick={() => fields.remove(index)}
-            >
-              Remove vehicle
-            </Button>
-            <Button
-              variant="primary"
-              className="px-5 ml-3"
-              onClick={() => fields.push({})}
-            >
-              Add vehicle
-            </Button>
+            {index === 0 ? (
+              <Button
+                variant="primary"
+                className="px-5"
+                onClick={() => fields.push({})}
+              >
+                Add vehicle
+              </Button>
+            ) : (
+              <>
+                <Button
+                  variant="danger"
+                  className="px-5"
+                  onClick={() => fields.remove(index)}
+                >
+                  Remove vehicle
+                </Button>
+                <Button
+                  variant="primary"
+                  className="px-5 ml-3"
+                  onClick={() => fields.push({})}
+                >
+                  Add vehicle
+                </Button>
+              </>
+            )}
           </div>
         </VehicleDataForm>
       ))}

@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
-// import Layout from '../../components/Layout/Layout';
-// import Button from 'react-bootstrap/Button';
-// import CompanyDataForm from '../../components/CompanyDataForm/CompanyDataForm';
-// import VehicleDataForm from '../../components/VehicleDataForm/VehicleDataForm';
-import { FieldArray, reduxForm, formValueSelector } from 'redux-form';
+import { reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { fetchCompanyAsync } from '../../redux/company/company-actions';
 import { useLocation } from 'react-router-dom';
@@ -25,38 +21,6 @@ const validate = (values) => {
 
   return errors;
 };
-
-// const renderVehicleForms = ({ fields }) => (
-//   <>
-//     <Button
-//       variant="primary"
-//       className="mt-2 px-5"
-//       onClick={() => fields.push({})}
-//     >
-//       Add vehicle
-//     </Button>
-//     {fields.map((vehicle, index) => (
-//       <VehicleDataForm key={index + 1} number={index + 1} vehicle={vehicle}>
-//         <>
-//           <Button
-//             variant="danger"
-//             className="px-5"
-//             onClick={() => fields.remove(index)}
-//           >
-//             Remove vehicle
-//           </Button>
-//           <Button
-//             variant="primary"
-//             className="px-5"
-//             onClick={() => fields.push({})}
-//           >
-//             Add vehicle
-//           </Button>
-//         </>
-//       </VehicleDataForm>
-//     ))}
-//   </>
-// );
 
 let EditCompanyDetails = ({
   handleSubmit,
@@ -87,8 +51,8 @@ let EditCompanyDetails = ({
 
 EditCompanyDetails = reduxForm({
   form: 'editCompanyDetails',
-  enableReinitialize: true,
   validate,
+  enableReinitialize: true,
 })(EditCompanyDetails);
 
 const selector = formValueSelector('editCompanyDetails');
