@@ -1,18 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-import { connect } from 'react-redux';
-import { fetchCompaniesAsync } from '../../redux/homepage/home-actions';
 import { Link } from 'react-router-dom';
 import classes from './Homepage.module.scss';
+import trans_axios from '../../axios';
 
-const Homepage = ({ companies, fetchCompaniesAsync }) => {
-  console.log(companies);
+const Homepage = () => {
+  const [companies, setCompanies] = useState([]);
 
-  // useEffect(() => {
-  //   fetchCompaniesAsync();
-  // }, []);
+  const fetchCompanies = useCallback(() => {
+    trans_axios
+      .get('/api/TransportationCompany/All')
+      .then((response) => {
+        console.log(response.data.Data); // this is an array
+        const companiesData = response.data.Data;
+        setCompanies(companiesData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchCompanies();
+  }, [fetchCompanies]);
 
   return (
     <Layout>
@@ -37,7 +49,6 @@ const Homepage = ({ companies, fetchCompaniesAsync }) => {
           Add Transportation
         </div>
       </Link>
-      {/* </Button> */}
 
       <Table striped hover className="mt-3">
         <thead className="bg-info text-white">
@@ -73,7 +84,7 @@ const Homepage = ({ companies, fetchCompaniesAsync }) => {
 
         <tbody>
           {companies.map((company) => (
-            <tr key={company.ID}>
+            <tr key={company.ID} style={{ textAlign: 'center' }}>
               <td></td>
               <td>{company.ID}</td>
               <td>{company.Name}</td>
@@ -93,13 +104,4 @@ const Homepage = ({ companies, fetchCompaniesAsync }) => {
   );
 };
 
-//TODO: recheck the below destructure
-const mapStateToProps = ({ home }) => ({
-  companies: home.companies,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchCompaniesAsync: () => dispatch(fetchCompaniesAsync()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
+export default Homepage;

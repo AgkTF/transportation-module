@@ -9,8 +9,11 @@ import { connect } from 'react-redux';
 const validate = (values) => {
   const errors = {};
 
-  if (!values.companyBuses || !values.companyBuses.length) {
-    errors.companyBuses = {
+  if (
+    !values.TransportationCompanyBuses ||
+    !values.TransportationCompanyBuses.length
+  ) {
+    errors.TransportationCompanyBuses = {
       _error: 'At least one vehicle must be entered',
     };
   }

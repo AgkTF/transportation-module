@@ -1,6 +1,6 @@
 import trans_axios from '../axios';
 
-export const apiCaller = (values, url, method) => {
+export const apiCaller = (values, url, method, history) => {
   const {
     ID,
     Name,
@@ -40,8 +40,10 @@ export const apiCaller = (values, url, method) => {
   })
     .then((response) => {
       console.log(response);
+      history.push('/');
     })
     .catch((error) => {
       console.log(error);
+      history.push('/');
     });
 };
