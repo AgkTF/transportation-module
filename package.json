@@ -34,15 +34,15 @@
       "react-app/jest"
     ]
   },
+  "engines": {
+    "node": "12.16"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
       "not dead",
       "not op_mini all"
     ],
-    "engines": {
-      "node": "12.16"
-    },
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
