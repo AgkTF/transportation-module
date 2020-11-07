@@ -64,9 +64,7 @@ let EditCompanyDetails = ({
   return (
     <Layout>
       <form onSubmit={handleSubmit}>
-        {/* <FormSection name="CompanyDataForm"> */}
         <CompanyDataForm countryId={countryId} />
-        {/* </FormSection> */}
 
         <FieldArray
           name="TransportationCompanyBuses"
@@ -110,43 +108,8 @@ const mapDispatchToProps = (dispatch) => ({
 EditCompanyDetails = connect(null, mapDispatchToProps)(EditCompanyDetails);
 
 EditCompanyDetails = connect((state) => {
-  // const companyData = state.
   return {
-    initialValues: {
-      ID: 50,
-      Name: 'Holiday tours',
-      Address: '12 GOGO st.',
-      Country: 56,
-      City: 895,
-      TelephoneNumber: '0224586125',
-      ContactPerson_Name: 'Fares',
-      ContactPerson_TelephoneNumber: '01000000000',
-      ContactPerson_Email: 'fares@gogo.com',
-      TransportationCompanyBuses: [
-        {
-          BusTypeID: 3,
-          Brand: 'Mazda',
-          YearModel: 2020,
-          Description: 'this is the bus',
-          Number_Of_Seats: 53,
-          Number_Of_Seats_Per_Raw: 5,
-          Total_Number_Of_Buses: 2,
-          Notes: 'this is all we have.',
-          ID: 0,
-        },
-        {
-          BusTypeID: 5,
-          Brand: 'lincoln',
-          YearModel: 2018,
-          Description: 'lemo',
-          Number_Of_Seats: 8,
-          Number_Of_Seats_Per_Raw: 3,
-          Total_Number_Of_Buses: 1,
-          Notes: 'our lemo',
-          ID: 1,
-        },
-      ],
-    },
+    initialValues: state.company.company,
   };
 })(EditCompanyDetails);
 
