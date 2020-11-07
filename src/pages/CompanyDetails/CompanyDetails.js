@@ -53,9 +53,9 @@ let CompanyDetails = ({
   return (
     <Layout>
       <form onSubmit={handleSubmit}>
-        <FormSection name="CompanyDataForm">
-          <CompanyDataForm countryId={countryId} />
-        </FormSection>
+        {/* <FormSection name="CompanyDataForm"> */}
+        <CompanyDataForm countryId={countryId} />
+        {/* </FormSection> */}
 
         <FieldArray name="companyBuses" component={renderVehicleForms} />
 

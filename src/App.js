@@ -1,40 +1,44 @@
 import './App.scss';
 import CompanyDetails from './pages/CompanyDetails/CompanyDetails';
-// import Homepage from './pages/Homepage/Homepage';
+import Homepage from './pages/Homepage/Homepage';
 import trans_axios from './axios';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import EditCompanyDetails from './pages/EditCompanyForm/EditCompanyForm';
 
 function App() {
   const submitHandler = (values) => {
     const {
-      companyId,
-      companyName,
-      companyAddress,
-      country,
-      city,
-      companyPhone,
-      personName,
-      personPhone,
-      personEmail,
-    } = values.CompanyDataForm;
+      ID,
+      Name,
+      Address,
+      Country,
+      City,
+      TelephoneNumber,
+      ContactPerson_Name,
+      ContactPerson_TelephoneNumber,
+      ContactPerson_Email,
+    } = values;
 
-    const busesArrayWithIDs = values.companyBuses.map((vehicle, index) => {
-      return {
-        ...vehicle,
-        ID: index,
-      };
-    });
+    const busesArrayWithIDs = values.TransportationCompanyBuses.map(
+      (vehicle, index) => {
+        return {
+          ...vehicle,
+          ID: index,
+        };
+      }
+    );
 
     trans_axios
       .post('/api/TransportationCompany/Add', {
-        ID: companyId,
-        Name: companyName,
-        Address: companyAddress,
-        Country: country,
-        City: city,
-        TelephoneNumber: companyPhone,
-        ContactPerson_Name: personName,
-        ContactPerson_TelephoneNumber: personPhone,
-        ContactPerson_Email: personEmail,
+        ID,
+        Name,
+        Address,
+        Country,
+        City,
+        TelephoneNumber,
+        ContactPerson_Name,
+        ContactPerson_TelephoneNumber,
+        ContactPerson_Email,
         TransportationCompanyBuses: busesArrayWithIDs,
       })
       .then((response) => {
@@ -44,8 +48,23 @@ function App() {
         console.log(error);
       });
   };
-  return <CompanyDetails onSubmit={submitHandler} />;
-  // return <Homepage />;
+  return (
+    <Switch>
+      <Route
+        path="/editCompany"
+        render={() => <EditCompanyDetails onSubmit={submitHandler} />}
+      />
+
+      <Route
+        path="/addCompany"
+        exact
+        render={() => <CompanyDetails onSubmit={submitHandler} />}
+      />
+
+      <Route path="/" component={Homepage} />
+      <Redirect from="*" to="/" />
+    </Switch>
+  );
 }
 
 export default App;

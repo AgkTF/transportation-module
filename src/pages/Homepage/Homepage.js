@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { connect } from 'react-redux';
 import { fetchCompaniesAsync } from '../../redux/homepage/home-actions';
+import { Link } from 'react-router-dom';
 
 const Homepage = ({ companies, fetchCompaniesAsync }) => {
   console.log(companies);
@@ -15,7 +16,9 @@ const Homepage = ({ companies, fetchCompaniesAsync }) => {
   return (
     <Layout>
       <Button variant="info" className="mt-3">
-        <span>+</span> Add Transportation
+        <Link to="/addCompany">
+          <span>+</span> Add Transportation
+        </Link>
       </Button>
 
       <Table striped hover className="mt-4">
@@ -37,9 +40,11 @@ const Homepage = ({ companies, fetchCompaniesAsync }) => {
               <td>{company.Name}</td>
               <td>{company.TotalFleet}</td>
               <td>
-                <Button variant="info" className="px-4">
-                  Edit
-                </Button>
+                <Link to={`/editCompany?compId=${company.ID}`}>
+                  <Button variant="info" className="px-4">
+                    Edit
+                  </Button>
+                </Link>
               </td>
             </tr>
           ))}

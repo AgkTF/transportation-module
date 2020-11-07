@@ -52,26 +52,21 @@ let CompanyDataForm = ({ children, countryId }) => {
           <Col>
             <Form.Group controlId="companyName">
               <Form.Label>Company Name</Form.Label>
-              <Field type="text" name="companyName" component="input" />
+              <Field type="text" name="Name" component="input" />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="companyId">
               <Form.Label>Company ID#</Form.Label>
-              <Field
-                type="number"
-                name="companyId"
-                component="input"
-                parse={Number}
-              />
+              <Field type="number" name="ID" component="input" parse={Number} />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="companyAddress">
               <Form.Label>Company Address</Form.Label>
-              <Field type="text" name="companyAddress" component="input" />
+              <Field type="text" name="Address" component="input" />
             </Form.Group>
           </Col>
         </Form.Row>
@@ -80,7 +75,7 @@ let CompanyDataForm = ({ children, countryId }) => {
           <Col>
             <Form.Group controlId="companyCountry">
               <Form.Label>Country</Form.Label>
-              <Field name="country" component="select" parse={Number}>
+              <Field name="Country" component="select" parse={Number}>
                 <option>Choose...</option>
                 {countries.map((country) => (
                   <option value={country.ID} key={country.ID}>
@@ -94,7 +89,7 @@ let CompanyDataForm = ({ children, countryId }) => {
           <Col>
             <Form.Group controlId="companyCity">
               <Form.Label>City</Form.Label>
-              <Field name="city" component="select" parse={Number}>
+              <Field name="City" component="select" parse={Number}>
                 <option>Choose...</option>
                 {cities.map((city) => (
                   <option value={city.ID} key={city.ID}>
@@ -108,7 +103,7 @@ let CompanyDataForm = ({ children, countryId }) => {
           <Col>
             <Form.Group controlId="companyTelNo">
               <Form.Label>Company Telephone no.</Form.Label>
-              <Field type="tel" name="companyPhone" component="input" />
+              <Field type="tel" name="TelephoneNumber" component="input" />
             </Form.Group>
           </Col>
         </Form.Row>
@@ -117,21 +112,29 @@ let CompanyDataForm = ({ children, countryId }) => {
           <Col>
             <Form.Group controlId="personName">
               <Form.Label>Contact Person Name</Form.Label>
-              <Field type="text" name="personName" component="input" />
+              <Field type="text" name="ContactPerson_Name" component="input" />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="personTelNo">
               <Form.Label>Contact Person Tel. no.</Form.Label>
-              <Field type="tel" name="personPhone" component="input" />
+              <Field
+                type="tel"
+                name="ContactPerson_TelephoneNumber"
+                component="input"
+              />
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="personEmail">
               <Form.Label>Contact Person Email</Form.Label>
-              <Field type="email" name="personEmail" component="input" />
+              <Field
+                type="email"
+                name="ContactPerson_Email"
+                component="input"
+              />
             </Form.Group>
           </Col>
         </Form.Row>
