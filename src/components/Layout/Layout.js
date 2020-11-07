@@ -1,17 +1,18 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import { Link } from 'react-router-dom';
 
 const Layout = ({ children }) => {
   return (
     <>
       <Navbar bg="info" variant="dark">
-        <Navbar.Brand href="/">Transportation</Navbar.Brand>
+        <Link to="/">
+          <Navbar.Brand>Transportation</Navbar.Brand>
+        </Link>
       </Navbar>
 
-      <Container fluid className="mt-4">
-        {children}
-      </Container>
+      <Container className="mt-4">{children}</Container>
     </>
   );
 };

@@ -4,12 +4,14 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { Field } from 'redux-form';
 
+// Define form validators
 const required = (value) => (value ? undefined : 'Required');
 const email = (value) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email address'
     : undefined;
 
+// a custom input field creator
 const renderField = ({ input, type, meta: { touched, error }, children }) => (
   <>
     {children ? (
@@ -59,6 +61,8 @@ let CompanyDataForm = ({ children, countryId }) => {
 
   useEffect(() => {
     fetchCountries();
+
+    // call fetchCities only when there's a valid countryId
     if (['Choose...', undefined].includes(countryId)) {
       return;
     }
@@ -67,12 +71,12 @@ let CompanyDataForm = ({ children, countryId }) => {
 
   return (
     <div className="mt-4 mt border rounded px-3 pt-2 shadow">
-      <h4 className="text-info">Company Data</h4>
+      <h4 className="mt-1 text-info">Company Data</h4>
       <div className="mt-4">
         <Form.Row>
           <Col>
             <Form.Group controlId="companyName">
-              <Form.Label>Company Name</Form.Label>
+              <Form.Label className="">Company Name</Form.Label>
               <Field
                 type="text"
                 name="Name"

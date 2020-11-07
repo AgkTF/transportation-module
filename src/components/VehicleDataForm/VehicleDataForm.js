@@ -4,15 +4,27 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { Field } from 'redux-form';
 
+// Define form validators
 const required = (value) => (value ? undefined : 'Required');
-const renderField = ({ input, type, meta: { touched, error }, children }) => (
+const minValue = (min) => (value) =>
+  value && value < min ? `Must be at least ${min}` : undefined;
+
+// a custom input field creator
+const renderField = ({
+  input,
+  type,
+  meta: { touched, error },
+  children,
+  min,
+}) => (
   <>
+    {/* The below check takes care of the select inputs and their options */}
     {children ? (
       <Form.Control {...input} type={type} as={type}>
         {children}
       </Form.Control>
     ) : (
-      <Form.Control {...input} type={type} />
+      <Form.Control {...input} type={type} min={min} />
     )}
     {touched && error && (
       <span className="text-danger">
@@ -29,7 +41,7 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
     trans_axios
       .get('/api/Lookup/GetVehicleType')
       .then((response) => {
-        console.log(response.data.Data);
+        // console.log(response.data.Data);
         const vehicleTypes = response.data.Data;
         setVehicleTypes(vehicleTypes);
       })
@@ -89,6 +101,7 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
                 parse={Number}
                 validate={required}
               >
+                {/*  some options here to match the UI design of select input field */}
                 <option>Choose...</option>
                 <option value="2021">2021</option>
                 <option value="2020">2020</option>
@@ -109,6 +122,7 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
                 name={`${vehicle}.Description`}
                 type="textarea"
                 component={renderField}
+                validate={required}
               />
             </Form.Group>
           </Col>
@@ -123,7 +137,8 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
                 name={`${vehicle}.Number_Of_Seats`}
                 parse={Number}
                 component={renderField}
-                validate={required}
+                validate={[minValue(2), required]}
+                min="1"
               />
             </Form.Group>
           </Col>
@@ -136,6 +151,8 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
                 name={`${vehicle}.Number_Of_Seats_Per_Raw`}
                 component={renderField}
                 parse={Number}
+                min="1"
+                validate={[minValue(1), required]}
               />
             </Form.Group>
           </Col>
@@ -147,8 +164,9 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
                 type="number"
                 name={`${vehicle}.Total_Number_Of_Buses`}
                 component={renderField}
-                validate={required}
+                validate={[minValue(1), required]}
                 parse={Number}
+                min="1"
               />
             </Form.Group>
           </Col>
@@ -162,6 +180,7 @@ const VehicleDataForm = ({ number, vehicle, children }) => {
                 name={`${vehicle}.Notes`}
                 component={renderField}
                 type="textarea"
+                validate={required}
               />
             </Form.Group>
           </Col>

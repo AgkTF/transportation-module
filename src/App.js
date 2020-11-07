@@ -1,5 +1,5 @@
 import './App.scss';
-import CompanyDetails from './pages/CompanyDetails/CompanyDetails';
+import AddCompanyForm from './pages/AddCompanyForm/AddCompanyForm';
 import Homepage from './pages/Homepage/Homepage';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import EditCompanyDetails from './pages/EditCompanyForm/EditCompanyForm';
@@ -28,7 +28,7 @@ function App() {
       <Route
         path="/addCompany"
         exact
-        render={() => <CompanyDetails onSubmit={addSubmitHandler} />}
+        render={() => <AddCompanyForm onSubmit={addSubmitHandler} />}
       />
 
       <Route path="/" component={Homepage} />

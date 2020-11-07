@@ -1,6 +1,8 @@
 import trans_axios from '../axios';
 
 export const apiCaller = (values, url, method, history) => {
+  console.log({ values });
+
   const {
     ID,
     Name,
@@ -12,15 +14,6 @@ export const apiCaller = (values, url, method, history) => {
     ContactPerson_TelephoneNumber,
     ContactPerson_Email,
   } = values;
-
-  const busesArrayWithIDs = values.TransportationCompanyBuses.map(
-    (vehicle, index) => {
-      return {
-        ...vehicle,
-        ID: index,
-      };
-    }
-  );
 
   trans_axios({
     method,
@@ -35,11 +28,11 @@ export const apiCaller = (values, url, method, history) => {
       ContactPerson_Name,
       ContactPerson_TelephoneNumber,
       ContactPerson_Email,
-      TransportationCompanyBuses: busesArrayWithIDs,
+      TransportationCompanyBuses: values.TransportationCompanyBuses,
     },
   })
     .then((response) => {
-      console.log(response);
+      console.log({ Success: response });
       history.push('/');
     })
     .catch((error) => {

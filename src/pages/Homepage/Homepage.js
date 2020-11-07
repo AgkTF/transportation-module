@@ -2,6 +2,7 @@ import React, { useEffect, useCallback, useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import classes from './Homepage.module.scss';
 import trans_axios from '../../axios';
@@ -29,7 +30,7 @@ const Homepage = () => {
   return (
     <Layout>
       <Link to="/addCompany">
-        <div className="btn btn-info font-weight-bold px-5">
+        <div className="btn btn-info px-5">
           <span>
             <svg
               className={classes.icon}
@@ -53,7 +54,9 @@ const Homepage = () => {
       <Table striped hover className="mt-3">
         <thead className="bg-info text-white">
           <tr className={classes.thead_titles}>
-            <th>#</th>
+            <th>
+              <Form.Check type="checkbox" disabled />
+            </th>
             <th>Company ID #</th>
             <th>Company Name</th>
             <th>Total Fleet</th>
@@ -85,7 +88,9 @@ const Homepage = () => {
         <tbody>
           {companies.map((company) => (
             <tr key={company.ID} style={{ textAlign: 'center' }}>
-              <td></td>
+              <td>
+                <Form.Check type="checkbox" />
+              </td>
               <td>{company.ID}</td>
               <td>{company.Name}</td>
               <td>{company.TotalFleet}</td>
